@@ -19,4 +19,16 @@ WORKDIR /ChatterBot/examples/django_app
 
 RUN PYTHONPATH=/ChatterBot/ python manage.py migrate
 
-ENTRYPOINT PYTHONPATH=/ChatterBot/ python manage.py runserver 0.0.0.0:8000
+RUN mkdir -p /bootstrap && \
+    mv /ChatterBot /bootstrap/ChatterBot
+
+WORKDIR /
+
+ENTRYPOINT \
+    if [ ! -d /data/ChatterBot ]; \
+    then \
+        mkdir -p /data &&\
+        cp -a /bootstrap/ChatterBot /data/ChatterBot; \
+    fi; \
+    cd /data/ChatterBot/examples/django_app &&\
+    PYTHONPATH=/data/ChatterBot/ python manage.py runserver 0.0.0.0:8000
