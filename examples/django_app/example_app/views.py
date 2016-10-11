@@ -11,6 +11,9 @@ class ChatterBotAppView(TemplateView):
     template_name = "app.html"
 
 class ChatterBotInitializeView(View):
+    def get(self, request, *args, **kargs):
+        return post(request, *args, **kargs)
+
     def post(self, request, *args, **kargs):
         chatterbot = ChatBot(**settings.CHATTERBOT)
         chatterbot.set_trainer(ChatterBotCorpusTrainer)
