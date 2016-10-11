@@ -12,7 +12,7 @@ class ChatterBotAppView(TemplateView):
 
 class ChatterBotInitializeView(View):
     def get(self, request, *args, **kargs):
-        return post(request, *args, **kargs)
+        return self.post(request, *args, **kargs)
 
     def post(self, request, *args, **kargs):
         chatterbot = ChatBot(**settings.CHATTERBOT)
