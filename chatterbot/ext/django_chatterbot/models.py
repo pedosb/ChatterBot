@@ -1,3 +1,4 @@
+# vim: set fileencoding=<encoding name> :
 from django.db import models
 
 
@@ -11,12 +12,12 @@ class Statement(models.Model):
         max_length=255
     )
 
-    def __str__(self):
+    def __unicode__(self):
         if len(self.text.strip()) > 60:
-            return '{}...'.format(self.text[:57])
+            return u'{}...'.format(self.text[:57])
         elif len(self.text.strip()) > 0:
-            return self.text
-        return '<empty>'
+            return u'%s' % self.text
+        return u'<empty>'
 
 
 class Response(models.Model):
@@ -44,7 +45,7 @@ class Response(models.Model):
 
     occurrence = models.PositiveIntegerField(default=0)
 
-    def __str__(self):
+    def __unicode__(self):
         s = self.statement.text if len(self.statement.text) <= 20 else self.statement.text[:17] + '...'
         s += ' => '
         s += self.response.text if len(self.response.text) <= 40 else self.response.text[:37] + '...'
